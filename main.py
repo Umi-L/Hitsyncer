@@ -1,10 +1,15 @@
 # Import everything needed to edit video clips
 from moviepy.editor import *
 
-hitsPerSecond = 1
+hitsPerSecond = 2.13
+keepAudio = False
+
 
 # loading video dsa gfg intro video
-clip = VideoFileClip("videoplayback.mp4")
+clip = VideoFileClip("input1.wmv")
+if not keepAudio: clip = clip.without_audio()
+
+audioclip = AudioFileClip("hit.mp3")
 
 hitClips = []
 hitTimes = []
@@ -19,6 +24,7 @@ with open("hits", "r") as file:
 
 # applying speed effect
 for i in range(len(hitClips)):
+    #if not on the last item
     if (i != len(hitClips)-1):
         hitClips[i] = hitClips[i].fx(vfx.speedx, hitsPerSecond * (hitTimes[i+1] - hitTimes[i]))
         print(hitsPerSecond * (hitTimes[i+1] - hitTimes[i]))
